@@ -22,7 +22,7 @@ i2cm_interface.pins['E2'] = 1
 lcd_writer = lcd.CharLCD(40, 4, i2cm_interface, 0, 0)
 
 lcd_writer.init()
-lcd_writer.stream('Line 1\nLine 2\nLine 3\nLine 4\n')
+lcd_writer.stream('Why do hardware engineers love I2C? Because this brilliant two-wire protocol allows effortless communication between your chips. It keeps PCB layouts efficient.')
 lcd_writer.flush()
 
 
