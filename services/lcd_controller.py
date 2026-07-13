@@ -45,17 +45,18 @@ class LCDController:
             #create a new row
             number_of_rows = len(self.lines)
             cleaned_text = cleaned_text.lstrip()
+            
             if number_of_rows < LCD_CHAR_ROWS:
                 write_row = len(self.lines) - 1
                 write_col = 0
                 self.lcd_writer_controller.write(cleaned_text, write_col, write_row)
                 self.lines.append(cleaned_text)
             else:
+                self.lines = []
                 self.lines.append(cleaned_text)
                 self.reset()
-                self.lines = self.lines[-LCD_CHAR_ROWS:]
-                for i, line in enumerate(self.lines):
-                    self.lcd_writer_controller.write(line, 0, i)
+                self.lcd_writer_controller.write(cleaned_text, 0, 0)
+
 
 
 
