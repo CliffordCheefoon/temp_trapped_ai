@@ -32,7 +32,7 @@ class LCDController:
     def write_string(self, incoming_str: str) -> None:
         no_breaks = re.sub(r'[\r\n]+', ' ', incoming_str)
         cleaned_text = re.sub(r'[^a-zA-Z0-9 .,!?\'-]', '', no_breaks)
-        cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
+        cleaned_text = re.sub(r'\s+', ' ', cleaned_text)
 
         last_line = self.lines[-1]
         if len(last_line) + len(cleaned_text) < LCD_CHAR_COLS:
