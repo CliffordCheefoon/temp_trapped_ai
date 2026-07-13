@@ -18,7 +18,7 @@ class LCDController:
         ##manually set the Enable Chip 2 pin, as the library does not do this automatically. Needed for dual chip LCDs such as the 40x4.
         i2cm_interface.pins['E2'] = 1 
         self.lcd_writer_controller = lcd.CharLCD(LCD_CHAR_COLS, LCD_CHAR_ROWS, i2cm_interface, 0, 0)
-        self.lines: list[str] = [""]
+        self.lines: list[str] = []
         self.reset()
 
 
@@ -27,6 +27,7 @@ class LCDController:
 
     def reset(self) -> None:
         self.lcd_writer_controller.init()
+        self.lines = [""]
 
 
     def write_string(self, incoming_str: str) -> None:
@@ -53,9 +54,8 @@ class LCDController:
                 self.lcd_writer_controller.write(cleaned_text, write_col, write_row)
                 self.lines.append(cleaned_text)
             else:
-                self.lines = []
-                self.lines.append(cleaned_text)
                 self.reset()
+                self.lines[-1] += cleaned_text
                 self.lcd_writer_controller.write(cleaned_text, 0, 0)
 
 

@@ -44,9 +44,14 @@ def main():
             reset = main_loop(client,lcd_controller, messages)
         except KeyboardInterrupt:
             print("KeyboardInterrupt received. Exiting the program.")
+            lcd_controller.reset()
+            lcd_controller.write_string("Keyboard Interrupt....")
             break
         except Exception as e:
             print(f"Error occurred: {e}. Resetting the conversation.")
+            lcd_controller.reset()
+            lcd_controller.write_string("Exception triggered reset....")
+            
             reset = True
 
         if reset:
