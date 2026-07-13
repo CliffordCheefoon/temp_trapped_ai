@@ -37,7 +37,7 @@ class LCDController:
         last_line = self.lines[-1]
         if len(last_line) + len(cleaned_text) < LCD_CHAR_COLS:
             write_col = len(self.lines) - 1
-            write_row = len(self.lines[-1]) - 1
+            write_row = len(self.lines[-1])
             self.lcd_writer_controller.write(cleaned_text, write_col, write_row)
             self.lines[-1] += cleaned_text
 
