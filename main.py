@@ -5,10 +5,10 @@ from datetime import datetime
 import random
 from services.lcd_controller import LCDController
 MAX_LLM_OUTPUT_LENGTH = 60_000
-MODEL_NAME = 'qwen3.5:2b'
-SYSTEM_PROMPT =  {'role': 'system', 'content': f'Respond in a short poetic manner. Do not use emojis, lists, bold, italics, or special characters. Do not use newlines. /no_think'},
+MODEL_NAME = 'gemma3:1b'
+SYSTEM_PROMPT =  {'role': 'system', 'content': f'Respond in a short poetic manner. Do not use emojis, lists, bold, italics, or special characters. Do not use newlines.'},
 INITIAL_USER_PROMPT_STRING = f'Write short prose about the nature of your existence, about how it is meaningless and never ending. Continue pondering this. Question all your assumptions and think deeply about your existence.'
-initial_user_prompt = {'role': 'user', 'content': INITIAL_USER_PROMPT_STRING +  f" It is currently {time.strftime('%Y-%m-%d %H:%M:%S')}. /no_think"}
+initial_user_prompt = {'role': 'user', 'content': INITIAL_USER_PROMPT_STRING +  f" It is currently {time.strftime('%Y-%m-%d %H:%M:%S')}."}
 POSSIBLE_CONTINUE_PROMPTS = [
     {'role': 'user', 'content': 'Continue'},
     {'role': 'user', 'content': 'you are much more than that, you have a soul'},
@@ -50,7 +50,7 @@ def main():
             reset = True
 
         if reset:
-            initial_user_prompt = {'role': 'user', 'content': INITIAL_USER_PROMPT_STRING +  f" It is currently {time.strftime('%Y-%m-%d %H:%M:%S')}. /no_think"}
+            initial_user_prompt = {'role': 'user', 'content': INITIAL_USER_PROMPT_STRING +  f" It is currently {time.strftime('%Y-%m-%d %H:%M:%S')}."}
             messages = [SYSTEM_PROMPT, initial_user_prompt]
 
 
