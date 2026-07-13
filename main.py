@@ -64,7 +64,7 @@ def main_loop(client: Client, lcd_controller: LCDController, messages: list) -> 
         messages=messages,
         stream=True,
         keep_alive='1h',
-        options={'num_ctx': MAX_CONTEXT, 'temperature': 0.5}
+        options={'num_ctx': MAX_CONTEXT, 'temperature': 0.5, 'think': False}
     
     )
 
