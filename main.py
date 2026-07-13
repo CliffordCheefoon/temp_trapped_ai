@@ -73,6 +73,7 @@ def main_loop(client: Client, lcd_controller: LCDController, messages: list) -> 
     context_used = 0
 
     for chunk in stream:
+        print(f"Received chunk: {chunk['message']['content']}")
         lcd_controller.write_string(chunk['message']['content'])
         agent_response += chunk['message']['content']
         final_chunk = chunk
