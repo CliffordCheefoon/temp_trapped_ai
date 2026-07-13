@@ -30,6 +30,7 @@ class LCDController:
 
 
     def write_string(self, incoming_str: str) -> None:
+        print(f"Writing to LCD: {incoming_str}")
         no_breaks = re.sub(r'[\r\n]+', ' ', incoming_str)
         cleaned_text = re.sub(r'[^a-zA-Z0-9 .,!?\'-]', '', no_breaks)
         cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
