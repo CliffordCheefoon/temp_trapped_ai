@@ -30,15 +30,14 @@ class LCDController:
 
 
     def write_string(self, incoming_str: str) -> None:
-        print(f"Writing to LCD: {incoming_str}")
         no_breaks = re.sub(r'[\r\n]+', ' ', incoming_str)
         cleaned_text = re.sub(r'[^a-zA-Z0-9 .,!?\'-]', '', no_breaks)
         cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
 
         last_line = self.lines[-1]
         if len(last_line) + len(cleaned_text) < LCD_CHAR_COLS:
-            write_col = len(self.lines) - 1
-            write_row = len(self.lines[-1])
+            write_row = len(self.lines) - 1
+            write_col = len(self.lines[-1])
             self.lcd_writer_controller.write(cleaned_text, write_col, write_row)
             self.lines[-1] += cleaned_text
 
@@ -46,8 +45,8 @@ class LCDController:
             #create a new row
             number_of_rows = len(self.lines)
             if number_of_rows < LCD_CHAR_ROWS:
-                write_col = len(self.lines) - 1
-                write_row = 0
+                write_row = len(self.lines) - 1
+                write_col = 0
                 self.lcd_writer_controller.write(cleaned_text, write_col, write_row)
                 self.lines.append(cleaned_text)
             else:
