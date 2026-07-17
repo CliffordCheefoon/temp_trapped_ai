@@ -1,6 +1,5 @@
 import re
 
-from RPLCD.i2c import CharLCD
 from charlcd import direct as lcd
 from charlcd.drivers.i2cm import I2C as I2CM
 
@@ -13,7 +12,6 @@ LCD_CHAR_COLS = 40
 
 class LCDController:
     def __init__(self) -> None:
-        self.lcd_backlight_controller = CharLCD(LCD_BACKPACK_CONTROLLER, LCD_BACKPACK_I2C_ADDR, cols=LCD_CHAR_COLS, rows=LCD_CHAR_ROWS)
         i2cm_interface = I2CM(LCD_BACKPACK_I2C_ADDR, 1)
         ##manually set the Enable Chip 2 pin, as the library does not do this automatically. Needed for dual chip LCDs such as the 40x4.
         i2cm_interface.pins['E2'] = 1 
@@ -22,8 +20,6 @@ class LCDController:
         self.reset()
 
 
-    def set_backlight(self, enabled: bool) -> None:
-        self.lcd_backlight_controller.backlight_enabled = enabled
 
     def reset(self) -> None:
         self.lcd_writer_controller.init()

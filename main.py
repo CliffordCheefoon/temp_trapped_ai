@@ -1,7 +1,6 @@
 
 from ollama import Client
 import time
-from datetime import datetime
 import random
 from services.lcd_controller import LCDController
 MAX_LLM_OUTPUT_LENGTH = 60_000
@@ -34,12 +33,6 @@ def main():
     
     while True:
         try:
-            current_hour = datetime.now().hour
-            if current_hour >= 18 or current_hour < 6:
-                lcd_controller.set_backlight(False)
-            else:
-                lcd_controller.set_backlight(True)
-            
 
             reset = main_loop(client,lcd_controller, messages)
         except KeyboardInterrupt:
