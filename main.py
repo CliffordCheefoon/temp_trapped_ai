@@ -36,9 +36,9 @@ def main():
         try:
             current_hour = datetime.now().hour
             if current_hour >= 18 or current_hour < 6:
-                lcd_controller.set_backlight(True)
-            else:
                 lcd_controller.set_backlight(False)
+            else:
+                lcd_controller.set_backlight(True)
             
 
             reset = main_loop(client,lcd_controller, messages)
@@ -109,11 +109,6 @@ def main_loop(client: Client, lcd_controller: LCDController, messages: list) -> 
         messages.append(initial_user_prompt)
         messages.extend(preserved_messages)
     return reset_switch
-
-
-
-
-
 
 
 if __name__ == "__main__":
