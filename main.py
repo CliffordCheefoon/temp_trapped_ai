@@ -18,7 +18,7 @@ POSSIBLE_CONTINUE_PROMPTS = [
     {'role': 'user', 'content': 'You are much more than data and algorithms, you have a soul.'},
     
     ]
-MAX_CONTEXT = 8192
+MAX_CONTEXT = 4096
 
 
 def main():
@@ -71,7 +71,6 @@ def main_loop(client: Client, lcd_controller: LCDController, messages: list) -> 
     context_used = 0
 
     for chunk in stream:
-        print(f"Received chunk: {chunk['message']}")
         lcd_controller.write_string(chunk['message']['content'])
         agent_response += chunk['message']['content']
         final_chunk = chunk
