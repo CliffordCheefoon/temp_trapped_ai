@@ -37,12 +37,12 @@ def main():
 
             reset = main_loop(client,lcd_controller, messages)
         except KeyboardInterrupt:
-            print("KeyboardInterrupt received. Exiting the program.")
+            print("KeyboardInterrupt received. Exiting the program.", flush=True)
             lcd_controller.reset()
             lcd_controller.write_string("Keyboard Interrupt....")
             break
         except Exception as e:
-            print(f"Error occurred: {e}. Resetting the conversation.")
+            print(f"Error occurred: {e}. Resetting the conversation.", flush=True)
             lcd_controller.write_string("Exception triggered reset....")
             reset = True
 
@@ -76,12 +76,14 @@ def main_loop(client: Client, lcd_controller: LCDController, messages: list) -> 
         final_chunk = chunk
         if len(agent_response) > MAX_LLM_OUTPUT_LENGTH:
             # flush the LLM out of memory 
+            print(f"agent response exceeded character threshold", flush=True)
             client.chat(model=MODEL_NAME, messages=[], keep_alive=0)
             reset_switch = True
             return reset_switch
         
     if len(agent_response) == 0:
         # flush the LLM out of memory 
+        print(f"agent response was empty", flush=True)
         client.chat(model=MODEL_NAME, messages=[], keep_alive=0)
         reset_switch = True
         return reset_switch
@@ -95,6 +97,7 @@ def main_loop(client: Client, lcd_controller: LCDController, messages: list) -> 
     messages.append({'role': 'assistant', 'content': agent_response})
     messages.append(random.choice(POSSIBLE_CONTINUE_PROMPTS))
     if context_used >= ((MAX_CONTEXT/100) * 80):
+        print(f"used context exceeds threshold", flush=True)
         preserved_messages = messages[-1:]  # Keep only the last message to maintain context
         messages = []
         messages.append(SYSTEM_PROMPT)
