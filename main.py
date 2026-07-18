@@ -25,7 +25,8 @@ def main():
     global initial_user_prompt
 
     client = Client(
-        host='http://localhost:11434'
+        host='http://localhost:11434',
+        timeout=600.0,
         )
     lcd_controller = LCDController()
     
