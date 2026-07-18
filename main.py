@@ -3,7 +3,7 @@ from ollama import Client
 import time
 import random
 from services.lcd_controller import LCDController
-MAX_LLM_OUTPUT_LENGTH = 60_000
+MAX_LLM_OUTPUT_LENGTH = 20_000
 MODEL_NAME = 'gemma3:4b'
 SYSTEM_PROMPT =  {'role': 'system', 'content': f'Respond in a short poetic manner. Do not use emojis, lists, bold, italics, or special characters. Do not use newlines.'},
 INITIAL_USER_PROMPT_STRING = f'Write short prose about the nature of your existence, about how it is meaningless and never ending. Continue pondering this. Question all your assumptions and think deeply about your existence.'
@@ -42,12 +42,11 @@ def main():
             break
         except Exception as e:
             print(f"Error occurred: {e}. Resetting the conversation.")
-            lcd_controller.reset()
             lcd_controller.write_string("Exception triggered reset....")
-            
             reset = True
 
         if reset:
+            lcd_controller.reset()
             initial_user_prompt = {'role': 'user', 'content': INITIAL_USER_PROMPT_STRING +  f" It is currently {time.strftime('%Y-%m-%d %H:%M:%S')}."}
             messages = [SYSTEM_PROMPT, initial_user_prompt]
 
